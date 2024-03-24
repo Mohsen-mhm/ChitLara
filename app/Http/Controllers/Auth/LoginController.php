@@ -13,6 +13,9 @@ class LoginController extends Controller
 {
     public function loginForm(): View|Application|Factory|ContractsApplication
     {
+        if (session()->has('locale')) {
+            app()->setLocale(session('locale'));
+        }
         return view('Auth.login');
     }
 }

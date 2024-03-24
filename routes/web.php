@@ -4,7 +4,6 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Requests\ToggleThemeRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {

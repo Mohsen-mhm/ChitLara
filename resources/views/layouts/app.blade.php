@@ -19,12 +19,10 @@
     @vite(['resources/css/app.css','resources/js/app.js'])
 
 </head>
-<body class="transition bg-gray-100 dark:bg-gray-900" dir="{{ app()->getLocale() == 'fa' ? 'rtl' : 'ltr' }}">
+<body class="transition bg-gray-100 dark:bg-gray-900">
 <x-dial-bar/>
 
 @yield('content')
-
-
 
 @guest
     <script src="{{ asset('assets/js/toggleTheme.js') }}"></script>

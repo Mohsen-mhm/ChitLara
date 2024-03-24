@@ -1,4 +1,4 @@
-<div data-dial-init class="fixed top-6 end-6 group">
+<div data-dial-init class="fixed top-6 end-6 group" dir="ltr">
     <button type="button" data-dial-toggle="speed-dial-menu-top-right" aria-controls="speed-dial-menu-top-right"
             aria-expanded="false"
             class="flex items-center justify-center text-white bg-indigo-500 rounded-full w-11 h-11 hover:bg-indigo-600 dark:bg-indigo-400 dark:hover:bg-indigo-500 focus:ring-4 focus:ring-indigo-400 focus:outline-none dark:focus:ring-indigo-300 transition">
