@@ -35,7 +35,6 @@ class User extends Authenticatable
         '2fa_code',
         'active',
         'theme',
-        'lang',
     ];
 
     /**
@@ -91,5 +90,21 @@ class User extends Authenticatable
     public function chits(): MorphMany
     {
         return $this->morphMany(Chit::class, 'chitable');
+    }
+
+    /**
+     * -------------------------------
+     * ---------- Utility Methods ----------
+     * -------------------------------
+     */
+
+    public static function getByEmail($email): object|null
+    {
+        return self::query()->where('email', $email)->first();
+    }
+
+    public static function getByUsername($username): object|null
+    {
+        return self::query()->where('username', $username)->first();
     }
 }

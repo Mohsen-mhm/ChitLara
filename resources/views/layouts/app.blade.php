@@ -20,9 +20,13 @@
 
 </head>
 <body class="transition bg-gray-100 dark:bg-gray-900">
+@include('sweetalert::alert')
+
 <x-dial-bar/>
 
-@yield('content')
+<div class="w-full flex flex-col justify-center items-center px-4 py-16">
+    @yield('content')
+</div>
 
 @guest
     <script src="{{ asset('assets/js/toggleTheme.js') }}"></script>

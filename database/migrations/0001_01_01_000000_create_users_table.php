@@ -31,7 +31,6 @@ return new class extends Migration {
             $table->boolean('active')->default(1);
 
             $table->enum('theme', ['dark', 'light'])->default('light');
-            $table->enum('lang', ['fa', 'en'])->default('fa');
 
             $table->rememberToken();
             $table->timestamps();
