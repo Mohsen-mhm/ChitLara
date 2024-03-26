@@ -3,21 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Events\VerifyEmailEvent;
-use App\Http\Requests\LoginRequest;
-use App\Mail\VerifyEmail;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use App\Models\Verification;
 use Illuminate\Contracts\Foundation\Application as ContractsApplication;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Redis;
 
 class LoginController extends Controller
 {
@@ -50,13 +45,11 @@ class LoginController extends Controller
             $verification = Verification::makeVerification(User::query()->find($user->id), $request, Verification::EMAIL_VERIFY);
             if ($verification) {
                 VerifyEmailEvent::dispatch(User::query()->find($user->id), $verification->code);
-
-                alert()->error('Oops..', 'You need to verify your email, a verification link has been sent to your email.')->autoClose(7000);
-                return back();
+                alert()->error(__('title.oops'), __('auth.need_verify'))->autoClose(7000);
             } else {
-                alert()->error('Oops...', 'Something went wrong, Try again.');
-                return back();
+                alert()->error(__('title.oops'), __('auth.something_wrong'));
             }
+            return back();
         }
 
         toast(__('validation.credential_error'), 'error');

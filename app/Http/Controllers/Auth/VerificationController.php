@@ -12,7 +12,11 @@ class VerificationController extends Controller
     public function confirm(Request $request)
     {
         if ($request->has('code') && $request->has('hash')) {
-            $verification = Verification::query()->where('code', $request->input('code'))->first();
+            $verification = Verification::query()
+                ->where('code', $request->input('code'))
+                ->where('type', Verification::EMAIL_VERIFY)
+                ->first();
+
             if ($verification && $verification->user->email == Crypt::decryptString($request->input('hash'))) {
                 if ($verification->expired_at > now()) {
                     $verification->user->setEmailVerified();

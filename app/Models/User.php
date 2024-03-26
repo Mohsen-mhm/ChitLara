@@ -123,4 +123,10 @@ class User extends Authenticatable
         $this->email_verified_at = now();
         return $this->save();
     }
+
+    public function changePassword($password): bool
+    {
+        $this->password = $password;
+        return $this->save();
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\VerificationController;
@@ -23,9 +24,17 @@ Route::prefix('/Auth')->middleware(['guest'])->group(function () {
     Route::get('register', [RegisterController::class, 'registerForm'])->name('register');
     Route::post('register', [RegisterController::class, 'register'])->name('register.confirm');
 
+    Route::prefix('/password')->group(function () {
+        Route::get('/forgot', [ForgotPasswordController::class, 'index'])->name('forgot.password');
+        Route::post('/forgot', [ForgotPasswordController::class, 'send'])->name('forgot.password.send');
+
+        Route::get('/change/{code}', [ForgotPasswordController::class, 'change'])->name('change.password');
+        Route::post('/change', [ForgotPasswordController::class, 'confirm'])->name('change.password.confirm');
+    });
+
     Route::get('verify/email/{code}', [VerificationController::class, 'confirm'])->name('email.verify');
 });
 
-Route::get('/test', function (){
-    dd(Redis::client());
+Route::get('test', function () {
+    return view('Auth.change-password', ['email' => 'test@gmail.com']);
 });

@@ -62,7 +62,7 @@
                                            class="transition text-gray-500 dark:text-gray-300">{{ __('auth.remember') }}</label>
                                 </div>
                             </div>
-                            <a href="#"
+                            <a href="{{ route('forgot.password') }}"
                                class="transition text-sm font-medium text-purple-600 hover:underline dark:text-purple-500">{{ __('auth.forgot') }}</a>
                         </div>
 
