@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\VerifyEmailEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Mail\VerifyEmail;
@@ -39,12 +40,7 @@ class RegisterController extends Controller
         if ($user) {
             $verification = Verification::makeVerification(User::query()->find($user->id), $request, Verification::EMAIL_VERIFY);
             if ($verification) {
-                Mail::to($user->email)->send(
-                    new VerifyEmail(
-                        User::query()->find($user->id),
-                        $verification->code,
-                    )
-                );
+                VerifyEmailEvent::dispatch(User::query()->find($user->id), $verification->code);
                 alert()->success('Successfully Registered', 'You need to verify your email, a verification link has been sent to your email.')->autoClose(7000);
                 return back();
             } else {
