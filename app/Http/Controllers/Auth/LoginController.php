@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\VerifyEmailEvent;
 use App\Http\Requests\LoginRequest;
 use App\Mail\VerifyEmail;
 use App\Models\User;
@@ -16,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redis;
 
 class LoginController extends Controller
 {
@@ -47,12 +49,8 @@ class LoginController extends Controller
         } else {
             $verification = Verification::makeVerification(User::query()->find($user->id), $request, Verification::EMAIL_VERIFY);
             if ($verification) {
-                Mail::to($user->email)->send(
-                    new VerifyEmail(
-                        User::query()->find($user->id),
-                        $verification->code,
-                    )
-                );
+                VerifyEmailEvent::dispatch(User::query()->find($user->id), $verification->code);
+
                 alert()->error('Oops..', 'You need to verify your email, a verification link has been sent to your email.')->autoClose(7000);
                 return back();
             } else {

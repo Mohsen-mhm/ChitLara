@@ -27,7 +27,7 @@
                                             d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
                                     </svg>
                                 </div>
-                                <input type="text" name="name" id="name"
+                                <input type="text" name="name" id="name" value="{{ old('name') }}"
                                        class="transition bg-gray-50 border border-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 @error('name') border-red-500 dark:border-red-500 @enderror"
                                        placeholder="Your name" required>
                                 @error('name')
@@ -47,7 +47,7 @@
                                             d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
                                     </svg>
                                 </div>
-                                <input type="text" name="username" id="username"
+                                <input type="text" name="username" id="username" value="{{ old('username') }}"
                                        class="transition bg-gray-50 border border-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 @error('username') border-red-500 dark:border-red-500 @enderror"
                                        placeholder="Username" required>
                                 @error('username')
@@ -68,7 +68,7 @@
                                         d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
                                 </svg>
                             </div>
-                            <input type="email" name="email" id="email"
+                            <input type="email" name="email" id="email" value="{{ old('email') }}"
                                    class="transition bg-gray-50 border border-gray-400 text-gray-900 sm:text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 @error('email') border-red-500 dark:border-red-500 @enderror"
                                    placeholder="name@company.com" required>
                             @error('email')

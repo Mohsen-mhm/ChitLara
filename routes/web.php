@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Requests\ToggleThemeRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
@@ -26,10 +27,5 @@ Route::prefix('/Auth')->middleware(['guest'])->group(function () {
 });
 
 Route::get('/test', function (){
-    dd(User::find(2)->setEmailVerified());
-//    return view('emails.registered', [
-//        'name' => 'test',
-//        'email' => 'test@gmail.com',
-//        'code' => '32323323232',
-//    ]);
+    dd(Redis::client());
 });
