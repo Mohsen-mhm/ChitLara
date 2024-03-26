@@ -51,6 +51,21 @@ return new class extends Migration {
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        Schema::create('verifications', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('type');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+
+            $table->ipAddress();
+            $table->string('code')->unique();
+
+            $table->timestamp('expired_at');
+            $table->timestamps();
+        });
     }
 
     /**

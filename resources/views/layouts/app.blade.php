@@ -19,7 +19,7 @@
     @vite(['resources/css/app.css','resources/js/app.js'])
 
 </head>
-<body class="transition bg-gray-100 dark:bg-gray-900">
+<body class="transition bg-gray-50 dark:bg-gray-900">
 @include('sweetalert::alert')
 
 <x-dial-bar/>

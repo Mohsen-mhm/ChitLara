@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Requests\ToggleThemeRequest;
 use App\Models\User;
@@ -17,7 +18,18 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('/Auth')->middleware(['guest'])->group(function () {
     Route::get('login', [LoginController::class, 'loginForm'])->name('login');
     Route::post('login', [LoginController::class, 'login'])->name('login.confirm');
+
     Route::get('register', [RegisterController::class, 'registerForm'])->name('register');
     Route::post('register', [RegisterController::class, 'register'])->name('register.confirm');
+
+    Route::get('verify/email/{code}', [VerificationController::class, 'confirm'])->name('email.verify');
 });
 
+Route::get('/test', function (){
+    dd(User::find(2)->setEmailVerified());
+//    return view('emails.registered', [
+//        'name' => 'test',
+//        'email' => 'test@gmail.com',
+//        'code' => '32323323232',
+//    ]);
+});
