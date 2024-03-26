@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'done' => 'Done',
+    'oops' => 'Oops',
     'sign_in_to_account' => 'Sign in to your account',
     'sign_in' => 'Sign in to your account',
     'sign_up_free' => 'Sign up free',
@@ -14,4 +16,13 @@ return [
     'forgot' => 'Forgot password?',
     'dont_have_account' => 'Don’t have an account yet?',
     'already_signup' => 'Already signed up?',
+    'password_recovery' => 'Password recovery',
+    'send' => 'Send',
+    'send_link' => 'A recovery link will be sent to your email',
+    'link_sent' => 'A recovery link has been sent to your email',
+    'back' => 'Back',
+    'something_wrong' => 'Something went wrong, Try again.',
+    'need_verify' => 'You need to verify your email, a verification link has been sent to your email.',
+    'set_password' => 'Set password for :email account',
+    'password_changed' => 'Password changed successfully, You can login now.',
 ];
