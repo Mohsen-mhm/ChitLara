@@ -92,10 +92,15 @@ class User extends Authenticatable
         return $this->morphMany(Chit::class, 'chitable');
     }
 
+    public function verifications(): HasMany
+    {
+        return $this->hasMany(Verification::class);
+    }
+
     /**
-     * -------------------------------
+     * -------------------------------------
      * ---------- Utility Methods ----------
-     * -------------------------------
+     * -------------------------------------
      */
 
     public static function getByEmail($email): object|null
@@ -106,5 +111,16 @@ class User extends Authenticatable
     public static function getByUsername($username): object|null
     {
         return self::query()->where('username', $username)->first();
+    }
+
+    public function isEmailVerified(): bool
+    {
+        return !!$this->email_verified_at;
+    }
+
+    public function setEmailVerified(): bool
+    {
+        $this->email_verified_at = now();
+        return $this->save();
     }
 }
