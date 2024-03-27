@@ -6,4 +6,5 @@ return [
     'register_success' => 'Successfully registered.',
     'verify_success' => 'Successfully verified.',
     'continue_to_app' => 'Continue to app',
+    'user_not_found' => 'User not found.',
 ];

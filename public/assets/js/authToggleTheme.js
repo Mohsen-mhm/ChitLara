@@ -6,10 +6,8 @@ getUserTheme().then(data => {
     if (data) {
         if (data.theme[0].theme === 'dark') {
             themeToggleLightIcon.classList.remove('hidden');
-            document.documentElement.classList.add('dark');
         } else {
             themeToggleDarkIcon.classList.remove('hidden');
-            document.documentElement.classList.remove('dark');
         }
     }
 });
@@ -29,9 +27,11 @@ themeToggleBtn.addEventListener('click', function () {
     if (document.documentElement.classList.contains('dark')) {
         document.documentElement.classList.remove('dark');
         sendUpdateRequest('light');
+        localStorage.setItem('color-theme', 'light');
     } else {
         document.documentElement.classList.add('dark');
         sendUpdateRequest('dark');
+        localStorage.setItem('color-theme', 'dark');
     }
 });
 
