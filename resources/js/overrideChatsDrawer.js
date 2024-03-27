@@ -6,13 +6,13 @@ const targetEl = document.getElementById('drawer-chat-list');
 const options = {
     backdrop: false,
     onShow: () => {
-        if (targetEl.classList.contains('-left-20')){
+        if (targetEl.classList.contains('-left-20')) {
             targetEl.classList.add('left-0')
             targetEl.classList.remove('-left-20')
         }
     },
     onHide: () => {
-        if (targetEl.classList.contains('left-0')){
+        if (targetEl.classList.contains('left-0')) {
             targetEl.classList.add('-left-20')
             targetEl.classList.remove('left-0')
         }

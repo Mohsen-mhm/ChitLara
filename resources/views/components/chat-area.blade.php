@@ -8,8 +8,10 @@
                  tabindex="-1">
                 <button type="button" id="drawer-hide-button" aria-controls="drawer-chat-list"
                         class="p-2 group border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition rounded-xl cursor-pointer absolute top-4 end-2.5 flex items-center justify-center">
-                    <svg class="w-3.5 h-3.5 transition text-purple-800 dark:text-purple-600 group group-hover:text-purple-900 dark:group-hover:text-purple-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                         viewBox="0 0 14 14">
+                    <svg
+                        class="w-3.5 h-3.5 transition text-purple-800 dark:text-purple-600 group group-hover:text-purple-900 dark:group-hover:text-purple-500"
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                               stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
@@ -17,7 +19,7 @@
                 </button>
 
                 <div class="w-full flex-col">
-                    <h1 class="mb-2 text-3xl font-semibold text-yellow-700 dark:text-yellow-400">{{ env('APP_NAME') }}</h1>
+                    <h1 class="mb-2 text-3xl font-semibold text-indigo-600 dark:text-yellow-400">{{ env('APP_NAME') }}</h1>
                     <div class="pb-6 pr-2">
                         <label for="search" class="sr-only">Search</label>
                         <div class="relative w-full">
@@ -58,7 +60,7 @@
             </div>
             <div class="flex h-full">
                 <div class="hidden lg:flex w-1/3 flex-col pr-1 mr-3 border-r border-gray-500 dark:border-gray-700">
-                    <h1 class="mb-2 text-3xl font-semibold text-yellow-700 dark:text-yellow-400">{{ env('APP_NAME') }}</h1>
+                    <h1 class="mb-2 text-3xl font-semibold text-indigo-600 dark:text-yellow-400">{{ env('APP_NAME') }}</h1>
                     <div class="pb-6 pr-2">
                         <label for="search" class="sr-only">Search</label>
                         <div class="relative w-full">
@@ -98,8 +100,11 @@
                 </div>
 
                 <div class="w-full flex flex-col">
-                    <div class="flex justify-start items-center">
-                        <div class="lg:hidden p-2 group mr-3 border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition rounded-xl cursor-pointer" id="drawer-chat-list-toggle">
+                    <div
+                        class="flex justify-start items-center border-b border-gray-500 dark:border-gray-600 pb-2 mb-2">
+                        <div
+                            class="lg:hidden p-2 group mr-5 border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition rounded-xl cursor-pointer"
+                            id="drawer-chat-list-toggle">
                             <svg
                                 class="w-8 h-8 transition text-purple-800 dark:text-purple-600 group group-hover:text-purple-900 dark:group-hover:text-purple-500"
                                 aria-hidden="true"
@@ -109,7 +114,12 @@
                                       d="M5 7h14M5 12h14M5 17h10"/>
                             </svg>
                         </div>
-                        <h1 class="text-3xl font-semibold text-gray-900 dark:text-white mb-2">Chat</h1>
+                        {!! \App\Helper\Helper::generateAvatar(auth()->user()->username, auth()->user()->avatar) !!}
+                        <div class="flex flex-col justify-center items-start ml-4">
+                            <h1 class="text-3xl font-semibold text-gray-900 dark:text-white transition">Bonnie
+                                Green</h1>
+                            <h1 class="text-sm text-gray-700 dark:text-gray-400 transition">Last seen 15:45</h1>
+                        </div>
                     </div>
                     <div class="w-full">
                         <div class="overflow-auto h-[600px]">

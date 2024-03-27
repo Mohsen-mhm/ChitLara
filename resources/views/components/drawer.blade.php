@@ -22,7 +22,7 @@
     </div>
     <div class="grid grid-cols-3 gap-4 p-4">
         <a href=""
-            class="p-4 rounded-lg cursor-pointer transition border border-gray-300 dark:border-gray-600 bg-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 dark:bg-gray-700">
+           class="p-4 rounded-lg cursor-pointer transition border border-gray-300 dark:border-gray-600 bg-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 dark:bg-gray-700">
             <div
                 class="flex justify-center items-center mx-auto mb-2 rounded-full w-[48px] h-[48px] max-w-[48px] max-h-[48px]">
                 {!! \App\Helper\Helper::generateAvatar(auth()->user()->username, auth()->user()->avatar) !!}
@@ -30,7 +30,7 @@
             <div class="font-medium text-center text-gray-600 dark:text-gray-300">{{ __('title.profile') }}</div>
         </a>
         <a href=""
-            class="p-4 rounded-lg cursor-pointer transition border border-gray-300 dark:border-gray-600 bg-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 dark:bg-gray-700">
+           class="p-4 rounded-lg cursor-pointer transition border border-gray-300 dark:border-gray-600 bg-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 dark:bg-gray-700">
             <div
                 class="flex justify-center items-center mx-auto mb-2 rounded-full w-[48px] h-[48px] max-w-[48px] max-h-[48px]">
                 {!! \App\Helper\Helper::generateAvatar(auth()->user()->username, auth()->user()->avatar) !!}
@@ -38,7 +38,7 @@
             <div class="font-medium text-center text-gray-600 dark:text-gray-300">{{ __('title.profile') }}</div>
         </a>
         <a href=""
-            class="p-4 rounded-lg cursor-pointer transition border border-gray-300 dark:border-gray-600 bg-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 dark:bg-gray-700">
+           class="p-4 rounded-lg cursor-pointer transition border border-gray-300 dark:border-gray-600 bg-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 dark:bg-gray-700">
             <div
                 class="flex justify-center items-center mx-auto mb-2 rounded-full w-[48px] h-[48px] max-w-[48px] max-h-[48px]">
                 {!! \App\Helper\Helper::generateAvatar(auth()->user()->username, auth()->user()->avatar) !!}
