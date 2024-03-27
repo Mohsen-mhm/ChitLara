@@ -34,7 +34,3 @@ Route::prefix('/Auth')->middleware(['guest'])->group(function () {
 
     Route::get('verify/email/{code}', [VerificationController::class, 'confirm'])->name('email.verify');
 });
-
-Route::get('test', function () {
-    return view('Auth.change-password', ['email' => 'test@gmail.com']);
-});
