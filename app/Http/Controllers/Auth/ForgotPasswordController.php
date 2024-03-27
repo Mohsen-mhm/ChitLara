@@ -25,7 +25,7 @@ class ForgotPasswordController extends Controller
 
     public function send(ForgotPasswordRequest $request): RedirectResponse
     {
-        $user = User::getByEmail($request->input('email'));
+        $user = User::getByEmail(trim(strtolower($request->input('email'))));
 
         if ($user) {
             $verification = Verification::makeVerification(User::query()->find($user->id), $request, Verification::FORGOT_PASSWORD);
@@ -77,7 +77,7 @@ class ForgotPasswordController extends Controller
                 if ($verification->expired_at > now()) {
                     Verification::destroy($verification->id);
 
-                    $verification->user->changePassword($request->input('password'));
+                    $verification->user->changePassword(trim(strtolower($request->input('password'))));
                     alert()->success(__('title.done'), __('auth.password_changed'))->autoClose(7000);
                     return redirect()->route('login');
                 } else {

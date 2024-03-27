@@ -26,8 +26,8 @@ class RegisterController extends Controller
         $userData = [
             'name' => $request->get('name'),
             'username' => $request->get('username'),
-            'email' => $request->get('email'),
-            'password' => $request->get('password'),
+            'email' => trim(strtolower($request->input('email'))),
+            'password' => trim(strtolower($request->input('password'))),
             'uuid' => Str::uuid(),
         ];
 

@@ -23,7 +23,7 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request): RedirectResponse
     {
-        $user = User::getByEmail($request->input('email'));
+        $user = User::getByEmail(trim(strtolower($request->input('email'))));
 
         if (!$user) {
             toast(__('validation.credential_error'), 'error');
@@ -35,8 +35,8 @@ class LoginController extends Controller
 
         if ($user->isEmailVerified()) {
             if (Auth::attempt([
-                'email' => $request->input('email'),
-                'password' => $request->input('password')
+                'email' => trim(strtolower($request->input('email'))),
+                'password' => trim(strtolower($request->input('password')))
             ], $request->input('remember') ?? 0)) {
                 toast(__('validation.success_login'), 'success');
                 return redirect()->route('home');
