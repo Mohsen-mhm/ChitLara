@@ -61,8 +61,6 @@ class User extends Authenticatable
             '2fa_code' => 'hashed',
             '2fa' => 'boolean',
             'active' => 'boolean',
-            'theme' => AppThemeEnum::class,
-            'lang' => AppLangEnum::class,
         ];
     }
 
@@ -128,5 +126,10 @@ class User extends Authenticatable
     {
         $this->password = $password;
         return $this->save();
+    }
+
+    public function getUserTheme(): string
+    {
+        return $this->theme;
     }
 }

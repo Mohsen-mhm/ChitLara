@@ -7,14 +7,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ env('APP_NAME', 'ChitLara') }}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/chitlara-fav-logo.png') }}">
 
     <script>
+        @guest
         // On page load or when changing themes, best to add inline in `head` to avoid FOUC
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark')
         }
+        @else
+        if ({{ auth()->user()->getUserTheme() == 'dark' ? 1 : 0 }}) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+        @endguest
     </script>
     @vite(['resources/css/app.css','resources/js/app.js'])
 

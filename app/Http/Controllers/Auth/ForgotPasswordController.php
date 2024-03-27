@@ -37,8 +37,10 @@ class ForgotPasswordController extends Controller
             }
             return back();
         }
-        alert()->error(__('title.oops'), __('auth.something_wrong'));
-        return back();
+        toast(__('validation.user_not_found'), 'error');
+        return back()->withErrors([
+            'email' => __('validation.credential_error'),
+        ]);
     }
 
     public function change(Request $request)
