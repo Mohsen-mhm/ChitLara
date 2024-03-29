@@ -4,7 +4,7 @@
         <div class="relative flex flex-col p-5">
 
             <div id="drawer-chat-list"
-                 class="lg:hidden absolute top-0 -left-20 z-40 h-full p-4 overflow-y-auto transition-transform -translate-x-full bg-white w-80 dark:bg-gray-800 rounded-s-xl border-r border-gray-500 dark:border-gray-700"
+                 class="lg:hidden absolute top-0 -left-60 z-40 h-full p-4 overflow-y-auto transition-transform -translate-x-full bg-white w-80 dark:bg-gray-800 rounded-s-xl border-r border-gray-500 dark:border-gray-700"
                  tabindex="-1">
                 <button type="button" id="drawer-hide-button" aria-controls="drawer-chat-list"
                         class="p-2 group border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition rounded-xl cursor-pointer absolute top-4 end-2.5 flex items-center justify-center">
@@ -42,7 +42,7 @@
                         <div
                             class="flex items-start bg-indigo-700 hover:-translate-x-0.5 transition p-2 mb-2 rounded-lg gap-2.5 cursor-pointer">
                             {!! \App\Helper\Helper::generateAvatar(auth()->user()->username, auth()->user()->avatar) !!}
-                            <div class="relative flex flex-col w-full max-w-[400px] leading-1.5">
+                            <div class="relative flex flex-col w-full max-w-[250px] leading-1.5">
                                 <div class="flex items-center space-x-2 rtl:space-x-reverse">
                                     <span
                                         class="text-sm font-semibold text-yellow-300 dark:text-yellow-300">{{ auth()->user()->name }}</span>
@@ -83,7 +83,7 @@
                         <div
                             class="flex items-start bg-indigo-700 hover:-translate-x-0.5 transition p-2 mb-2 rounded-lg gap-2.5 cursor-pointer">
                             {!! \App\Helper\Helper::generateAvatar(auth()->user()->username, auth()->user()->avatar) !!}
-                            <div class="relative flex flex-col w-full max-w-[400px] leading-1.5">
+                            <div class="relative flex flex-col w-full max-w-[250px] leading-1.5">
                                 <div class="flex items-center space-x-2 rtl:space-x-reverse">
                                     <span
                                         class="text-sm font-semibold text-yellow-300 dark:text-yellow-300">{{ auth()->user()->name }}</span>
@@ -127,7 +127,7 @@
                             <div class="flex items-end my-2">
                                 {!! \App\Helper\Helper::generateAvatar(auth()->user()->username, auth()->user()->avatar) !!}
                                 <div
-                                    class="flex flex-col relative w-full max-w-[400px] leading-1.5 transition p-4 ml-2 border-gray-200 bg-indigo-700 hover:bg-indigo-800 dark:hover:bg-indigo-800 rounded-xl rounded-es-none">
+                                    class="flex flex-col relative w-full max-w-[250px] leading-1.5 transition p-4 ml-2 border-gray-200 bg-indigo-700 hover:bg-indigo-800 dark:hover:bg-indigo-800 rounded-xl rounded-es-none">
                                     <div class="flex items-center space-x-2 rtl:space-x-reverse">
                                         <span
                                             class="text-sm font-semibold text-yellow-300 dark:text-yellow-300">Bonnie Green</span>
@@ -141,7 +141,7 @@
                             </div>
                             <div class="flex items-start my-2" dir="rtl">
                                 <div
-                                    class="relative flex flex-col w-full max-w-[400px] leading-1.5 transition px-4 border-gray-200 bg-indigo-700 hover:bg-indigo-800 dark:hover:bg-indigo-800 rounded-xl rounded-es-none">
+                                    class="relative flex flex-col w-full max-w-[250px] leading-1.5 transition px-4 border-gray-200 bg-indigo-700 hover:bg-indigo-800 dark:hover:bg-indigo-800 rounded-xl rounded-es-none">
 
                                     <p dir="ltr" class="text-sm font-normal py-2.5 text-white dark:text-gray-100">
                                         That's awesome. I think our users will really appreciate the improvements.
@@ -155,7 +155,7 @@
                             {{-- Active private chat bubbles --}}
                             <div class="flex items-start my-2">
                                 <div
-                                    class="relative flex flex-col w-full max-w-[400px] leading-1.5 transition px-4 border-gray-200 bg-indigo-700 hover:bg-indigo-800 dark:hover:bg-indigo-800 rounded-xl rounded-es-none">
+                                    class="relative flex flex-col w-full max-w-[250px] leading-1.5 transition px-4 border-gray-200 bg-indigo-700 hover:bg-indigo-800 dark:hover:bg-indigo-800 rounded-xl rounded-es-none">
 
                                     <p class="text-sm font-normal py-2.5 text-white dark:text-gray-100">
                                         That's awesome. I think our users will really appreciate the improvements.
@@ -166,7 +166,7 @@
                             </div>
                             <div class="flex items-start my-2" dir="rtl">
                                 <div
-                                    class="relative flex flex-col w-full max-w-[400px] leading-1.5 transition px-4 border-gray-200 bg-indigo-700 hover:bg-indigo-800 dark:hover:bg-indigo-800 rounded-xl rounded-es-none">
+                                    class="relative flex flex-col w-full max-w-[250px] leading-1.5 transition px-4 border-gray-200 bg-indigo-700 hover:bg-indigo-800 dark:hover:bg-indigo-800 rounded-xl rounded-es-none">
 
                                     <p dir="ltr" class="text-sm font-normal py-2.5 text-white dark:text-gray-100">
                                         That's awesome. I think our users will really appreciate the improvements.
