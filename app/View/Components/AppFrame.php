@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ChatArea extends Component
+class AppFrame extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class ChatArea extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.chat-area');
+        return view('components.app-frame');
     }
 }

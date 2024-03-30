@@ -1,4 +1,4 @@
-<div class="flex items-start my-2" dir="rtl">
+<div class="flex items-start my-2 px-1" dir="rtl">
     <div
         class="relative flex flex-col w-full max-w-[250px] leading-1.5 transition px-4 border-gray-200 bg-indigo-700 hover:bg-indigo-800 dark:hover:bg-indigo-800 rounded-xl rounded-es-none">
 

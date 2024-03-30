@@ -4,7 +4,7 @@
         <div class="relative flex flex-col p-5">
 
             <div id="drawer-chat-list"
-                 class="lg:hidden absolute top-0 -left-60 z-40 h-full p-4 overflow-y-auto transition-transform -translate-x-full bg-white w-80 dark:bg-gray-800 rounded-s-xl border-r border-gray-500 dark:border-gray-700"
+                 class="lg:hidden absolute top-0 z-40 h-full p-4 overflow-y-auto transition-transform -translate-x-[250%] bg-white w-80 dark:bg-gray-800 rounded-s-xl border-r border-gray-500 dark:border-gray-700"
                  tabindex="-1">
                 <button type="button" id="drawer-hide-button" aria-controls="drawer-chat-list"
                         class="p-2 group border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition rounded-xl cursor-pointer absolute top-4 end-2.5 flex items-center justify-center">
@@ -39,27 +39,7 @@
                     {{-- End all chats list --}}
                 </div>
 
-                <div class="w-full flex flex-col">
-
-                    <x-chat-nav/>
-
-                    <div class="w-full">
-                        <div class="overflow-auto h-[600px]">
-                            {{-- Active group bubbles --}}
-                            <x-group-message/>
-                            <x-user-message/>
-                            {{-- End active group bubbles --}}
-
-                            {{-- Active private chat bubbles --}}
-                            <x-other-message/>
-                            <x-user-message/>
-                            {{-- End active private chat bubbles --}}
-
-                        </div>
-
-                        <x-send-form/>
-                    </div>
-                </div>
+                <x-active-box/>
             </div>
         </div>
     </div>
