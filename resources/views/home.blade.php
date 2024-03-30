@@ -2,5 +2,5 @@
 
 @section('content')
     <x-drawer/>
-    <x-chat-area/>
+    <x-app-frame/>
 @endsection

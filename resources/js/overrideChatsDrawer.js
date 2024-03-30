@@ -6,14 +6,14 @@ const targetEl = document.getElementById('drawer-chat-list');
 const options = {
     backdrop: false,
     onShow: () => {
-        if (targetEl.classList.contains('-left-60')) {
+        if (targetEl.classList.contains('-left-100')) {
             targetEl.classList.add('left-0')
-            targetEl.classList.remove('-left-60')
+            targetEl.classList.remove('-left-100')
         }
     },
     onHide: () => {
         if (targetEl.classList.contains('left-0')) {
-            targetEl.classList.add('-left-60')
+            targetEl.classList.add('-left-100')
             targetEl.classList.remove('left-0')
         }
     },
