@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
 
             $table->string('name');
             $table->string('username')->unique();
@@ -24,13 +25,13 @@ return new class extends Migration {
             $table->string('avatar')->nullable();
 
             $table->string('password');
-            $table->uuid();
 
-            $table->boolean('2fa')->default(0);
-            $table->string('2fa_code')->nullable(); // Hashed
+            $table->boolean('2fa_enabled')->default(0);
+            $table->string('2fa_secret')->nullable(); // Hashed
             $table->boolean('active')->default(1);
 
             $table->enum('theme', ['dark', 'light'])->default('light');
+            $table->timestamp('last_seen_at')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

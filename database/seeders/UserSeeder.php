@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Role;
+use App\Models\SaveMessage;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -29,6 +30,11 @@ class UserSeeder extends Seeder
         if (!$user) {
             $god = User::query()->create($item);
             $god->roles()->sync(Role::query()->where('name', Role::GOD)->first()->id);
+
+            SaveMessage::query()->create([
+                'uuid' => Str::uuid(),
+                'user_id' => $god->id
+            ]);
         }
     }
 }

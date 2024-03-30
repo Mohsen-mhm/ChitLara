@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Events\VerifyEmailEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Models\SaveMessage;
 use App\Models\User;
 use App\Models\Verification;
 use Illuminate\Contracts\Foundation\Application as ContractsApplication;
@@ -32,6 +33,8 @@ class RegisterController extends Controller
         ];
 
         $user = User::query()->create($userData);
+        SaveMessage::query()->create(['user_id' => $user->id]);
+
         if ($user) {
             $verification = Verification::makeVerification(User::query()->find($user->id), $request, Verification::EMAIL_VERIFY);
             if ($verification) {
