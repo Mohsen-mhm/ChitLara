@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Enums\AppLangEnum;
 use App\Enums\AppThemeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -23,18 +24,20 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'uuid',
         'name',
         'username',
         'bio',
         'email',
+        'email_verified_at',
         'phone',
         'avatar',
         'password',
-        'uuid',
-        '2fa',
-        '2fa_code',
+        '2fa_enabled',
+        '2fa_secret',
         'active',
         'theme',
+        'last_seen_at',
     ];
 
     /**
@@ -82,7 +85,7 @@ class User extends Authenticatable
 
     public function groups(): BelongsToMany
     {
-        return $this->belongsToMany(Group::class, 'user_groups');
+        return $this->belongsToMany(Group::class, 'group_users');
     }
 
     public function chits(): MorphMany
@@ -93,6 +96,16 @@ class User extends Authenticatable
     public function verifications(): HasMany
     {
         return $this->hasMany(Verification::class);
+    }
+
+    public function saveMessage(): BelongsTo
+    {
+        return $this->belongsTo(SaveMessage::class);
+    }
+
+    public function reactions(): HasMany
+    {
+        return $this->hasMany(User::class);
     }
 
     /**

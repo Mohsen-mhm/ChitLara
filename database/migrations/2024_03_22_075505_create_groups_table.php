@@ -14,19 +14,20 @@ return new class extends Migration {
             $table->id();
             $table->uuid();
 
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->unsignedBigInteger('creator_id');
+            $table->foreign('creator_id')->references('id')->on('users')->cascadeOnDelete();
 
             $table->string('name');
             $table->string('username')->unique();
 
             $table->string('bio')->nullable();
+            $table->string('avatar')->nullable();
             $table->enum('type', ['public', 'private'])->default('public');
 
             $table->timestamps();
         });
 
-        Schema::create('user_groups', function (Blueprint $table) {
+        Schema::create('group_users', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('user_id');

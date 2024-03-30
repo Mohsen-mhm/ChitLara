@@ -13,12 +13,16 @@ class Group extends Model
 {
     use HasFactory;
 
+    public const TYPE_PUBLIC = 'public';
+    public const TYPE_PRIVATE = 'private';
+
     protected $fillable = [
         'uuid',
-        'user_id',
+        'creator_id',
         'name',
         'username',
         'bio',
+        'avatar',
         'type',
     ];
 
@@ -40,14 +44,14 @@ class Group extends Model
      * -------------------------------
      */
 
-    public function admin(): BelongsTo
+    public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'user_groups');
+        return $this->belongsToMany(User::class, 'group_users');
     }
 
     public function chits(): MorphMany
