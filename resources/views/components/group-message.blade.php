@@ -1,4 +1,4 @@
-<div class="flex items-end my-2">
+<div class="flex items-end my-2 px-1">
     {!! \App\Helper\Helper::generateAvatar(auth()->user()->username, auth()->user()->avatar) !!}
     <div
         class="flex flex-col relative w-full max-w-[250px] leading-1.5 transition p-4 ml-2 border-gray-200 bg-indigo-700 hover:bg-indigo-800 dark:hover:bg-indigo-800 rounded-xl rounded-es-none">

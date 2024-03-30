@@ -5,6 +5,9 @@
     <div class="w-full">
         <div class="overflow-auto h-[550px]">
             {{-- Active group bubbles --}}
+
+            <x-no-message/>
+
             <x-group-message/>
             <x-user-message/>
             {{-- End active group bubbles --}}
