@@ -58,4 +58,15 @@ class Group extends Model
     {
         return $this->morphMany(Chit::class, 'chitable');
     }
+
+    /**
+     * -------------------------------------
+     * ---------- Utility Methods ----------
+     * -------------------------------------
+     */
+
+    public static function getByUuid($uuid): object|null
+    {
+        return self::query()->where('uuid', $uuid)->first();
+    }
 }

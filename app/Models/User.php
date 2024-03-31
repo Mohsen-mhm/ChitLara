@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 
 class User extends Authenticatable
 {
@@ -98,9 +99,9 @@ class User extends Authenticatable
         return $this->hasMany(Verification::class);
     }
 
-    public function saveMessage(): BelongsTo
+    public function saveMessage(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->belongsTo(SaveMessage::class);
+        return $this->hasOne(SaveMessage::class);
     }
 
     public function reactions(): HasMany
@@ -113,6 +114,11 @@ class User extends Authenticatable
      * ---------- Utility Methods ----------
      * -------------------------------------
      */
+
+    public static function getByUuid($uuid): object|null
+    {
+        return self::query()->where('uuid', $uuid)->first();
+    }
 
     public static function getByEmail($email): object|null
     {
@@ -144,5 +150,10 @@ class User extends Authenticatable
     public function getUserTheme(): string
     {
         return $this->theme;
+    }
+
+    public function getUserLastSeen(): string
+    {
+        return Carbon::parse($this->last_seen_at)->diffForHumans();
     }
 }

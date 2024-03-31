@@ -2,21 +2,18 @@
 
 namespace App\View\Components;
 
-use App\Models\User;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class AllChats extends Component
+class Sidebar extends Component
 {
-    public User $user;
-
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
-        $this->user = User::query()->find(auth()->id());
+        //
     }
 
     /**
@@ -24,6 +21,6 @@ class AllChats extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.all-chats');
+        return view('components.sidebar');
     }
 }

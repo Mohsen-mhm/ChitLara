@@ -13,6 +13,10 @@ class Chit extends Model
 {
     use HasFactory, SoftDeletes;
 
+    public const TYPE_SAVED = 'saved';
+    public const TYPE_GROUP = 'group';
+    public const TYPE_USER = 'user';
+
     protected $fillable = [
         'uuid',
         'user_id',

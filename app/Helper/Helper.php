@@ -2,6 +2,8 @@
 
 namespace App\Helper;
 
+use Illuminate\Support\Facades\View;
+
 class Helper
 {
     // Helper function to generate avatar
@@ -25,5 +27,15 @@ class Helper
         $blue = mt_rand(80, 200);
         // Convert RGB values to hexadecimal format
         return sprintf('#%02X%02X%02X', $red, $green, $blue);
+    }
+
+    public static function setActiveBoxSession(string $uuid, string $type): string
+    {
+        session()->put('active_box', [
+            'id' => $uuid,
+            'type' => $type
+        ]);
+
+        return View::make('components.active-box')->render();
     }
 }
