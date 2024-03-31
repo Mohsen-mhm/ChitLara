@@ -6,15 +6,16 @@ const targetEl = document.getElementById('drawer-chat-list');
 const options = {
     backdrop: false,
     onShow: () => {
-        if (targetEl.classList.contains('-left-100')) {
+        if (targetEl.classList.contains('-left-300')) {
             targetEl.classList.add('left-0')
-            targetEl.classList.remove('-left-100')
+            targetEl.classList.remove('-left-300')
         }
     },
     onHide: () => {
         if (targetEl.classList.contains('left-0')) {
-            targetEl.classList.add('-left-100')
             targetEl.classList.remove('left-0')
+            targetEl.classList.add('-left-300')
+            targetEl.classList.remove('-translate-x-full')
         }
     },
 };

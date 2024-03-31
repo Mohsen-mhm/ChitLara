@@ -19,11 +19,7 @@ themeToggleBtn.addEventListener('click', function () {
     // toggle icons inside button
     themeToggleDarkIcon.classList.toggle('hidden');
     themeToggleLightIcon.classList.toggle('hidden');
-    let result = getUserTheme().then(data => {
-        if (data) {
-            return data.theme[0].theme;
-        }
-    });
+
     if (document.documentElement.classList.contains('dark')) {
         document.documentElement.classList.remove('dark');
         sendUpdateRequest('light');

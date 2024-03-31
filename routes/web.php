@@ -9,12 +9,25 @@ use App\Http\Requests\ToggleThemeRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
     Route::post('/toggle-theme', fn(ToggleThemeRequest $request) => auth()->user()->update(['theme' => $request->input('theme')]));
     Route::get('/get-user-theme', fn() => response()->json(['theme' => User::query()->find(auth()->id())->get('theme')]));
+
+    Route::post('/click-chat', function (\Illuminate\Http\Request $request) {
+        $view = \App\Helper\Helper::setActiveBoxSession($request->input('id'), $request->input('type'));
+        if ($view) {
+            return response()->json(['view' => $view]);
+        }
+        return response()->json([], 500);
+    })->name('chat.clicked');
+
+    Route::post('/get-sidebar-view', function () {
+        return response()->json(['view' => View::make('components.sidebar')->render()]);
+    })->name('get.sidebar');
 });
 
 Route::prefix('/Auth')->middleware(['guest'])->group(function () {

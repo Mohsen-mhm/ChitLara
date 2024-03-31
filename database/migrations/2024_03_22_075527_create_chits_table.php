@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
 
-            $table->morphs('chit'); // chitable [Can be 'User, SaveMessage, Group']
+            $table->morphs('chitable'); // Morphs Rel [Can be 'User, SaveMessage, Group']
 
             $table->text('message')->nullable();
 

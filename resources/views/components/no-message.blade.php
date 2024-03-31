@@ -1,4 +1,4 @@
-<div class="w-full h-full flex flex-col justify-center items-center px-1">
+<div class="w-full h-[600px] flex flex-col justify-center items-center px-1">
     <object type="image/svg+xml" data="{{ asset('assets/img/wait.svg') }}" class="w-44">
         <img src="{{ asset('assets/img/wait.svg') }}" alt="Wait for message">
     </object>
