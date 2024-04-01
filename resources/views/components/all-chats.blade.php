@@ -18,10 +18,17 @@
                         class="text-sm font-semibold text-yellow-500 dark:text-yellow-400">{{ __('title.save_message') }}</span>
                 </div>
                 <p class="text-sm font-normal transition dark:text-white @if(collect(session('active_box'))->get('type') == \App\Models\Chit::TYPE_SAVED) text-white @endif">
-                    {{ \Illuminate\Support\Str::limit($user->saveMessage->chits->last()->message, 13) }}
+                    @if($user->saveMessage->chits->count())
+                        {{ \Illuminate\Support\Str::limit($user->saveMessage->chits->last()->message, 13) }}
+                    @else
+                        ...
+                    @endif
                 </p>
-                <span
-                    class="absolute bottom-0 right-0 text-sm font-normal text-gray-400 dark:text-gray-200">{{ $user->saveMessage->chits->last()->getMessageSendAt() }}</span>
+                @if($user->saveMessage->chits->count())
+                    <span class="absolute bottom-0 right-0 text-sm font-normal text-gray-400 dark:text-gray-200">
+                        {{ $user->saveMessage->chits->last()->getMessageSendAt() }}
+                    </span>
+                @endif
             </div>
         </a>
     @endif
