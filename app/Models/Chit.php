@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 class Chit extends Model
 {
@@ -43,13 +44,18 @@ class Chit extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function attachment(): BelongsTo
+    public function attachment(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->belongsTo(MessageAttachment::class);
+        return $this->hasOne(MessageAttachment::class);
     }
 
     public function reactions(): HasMany
     {
         return $this->hasMany(MessageReaction::class);
+    }
+
+    public function getMessageSendAt(): string
+    {
+        return Carbon::parse($this->created_at)->format('H:i');
     }
 }

@@ -9,4 +9,5 @@ return [
     'save_message' => 'Saved Messages',
     'member' => 'Member',
     'last_seen' => 'Last seen',
+    'fail_to_load' => 'Fail to load content',
 ];
