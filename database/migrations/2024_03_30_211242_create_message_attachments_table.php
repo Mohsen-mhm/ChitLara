@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('chit_id');
             $table->foreign('chit_id')->references('id')->on('chits')->cascadeOnDelete();
 
-            $table->enum('type', ['image', 'video', 'file']);
+            $table->enum('type', ['image', 'file']);
 
             $table->string('url')->unique();
 

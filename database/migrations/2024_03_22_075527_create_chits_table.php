@@ -22,8 +22,8 @@ return new class extends Migration
 
             $table->text('message')->nullable();
 
-            $table->boolean('edited');
-            $table->timestamp('edited_at');
+            $table->boolean('edited')->default(0);
+            $table->timestamp('edited_at')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

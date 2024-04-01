@@ -1,7 +1,8 @@
 <div class="h-full overflow-auto pr-2">
     @if($user->saveMessage->count())
         <a href="javascript:void(0)"
-           onclick="clickOnChat('{{ $user->saveMessage->uuid }}', '{{ \App\Models\Chit::TYPE_SAVED }}')"
+           @if(collect(session('active_box'))->get('id') != $user->saveMessage->uuid) onclick="clickOnChat('{{ $user->saveMessage->uuid }}', '{{ \App\Models\Chit::TYPE_SAVED }}')"
+           @endif
            class="flex items-start hover:-translate-x-0.5 @if(collect(session('active_box'))->get('id') == $user->saveMessage->uuid) bg-indigo-700 hover:bg-indigo-800 @endif transition p-2 mb-2 rounded-lg gap-2.5 cursor-pointer">
             <div style="min-height: 2.5rem; min-width: 2.5rem;"
                  class="rounded-full h-10 w-10 min-h-10 min-w-10 flex items-center justify-center text-white text-xl font-bold bg-blue-500">
@@ -17,27 +18,50 @@
                         class="text-sm font-semibold text-yellow-500 dark:text-yellow-400">{{ __('title.save_message') }}</span>
                 </div>
                 <p class="text-sm font-normal transition dark:text-white @if(collect(session('active_box'))->get('type') == \App\Models\Chit::TYPE_SAVED) text-white @endif">
-                    {{ \Illuminate\Support\Str::limit("That's awesome. I think our users will really appreciate the improvements.", 13) }}
+                    {{ \Illuminate\Support\Str::limit($user->saveMessage->chits->last()->message, 13) }}
                 </p>
                 <span
-                    class="absolute bottom-0 right-0 text-sm font-normal text-gray-400 dark:text-gray-200">11:46</span>
+                    class="absolute bottom-0 right-0 text-sm font-normal text-gray-400 dark:text-gray-200">{{ $user->saveMessage->chits->last()->getMessageSendAt() }}</span>
             </div>
         </a>
     @endif
 
     <script>
         function clickOnChat(uuid, type) {
-            let activeBoxView = fetchData('{{ route('chat.clicked') }}', {id: uuid, type: type}).then(response => {
+            fetchData('/click-chat', {id: uuid, type: type}).then(response => {
                 if (response && response.view) {
                     document.getElementById('active-box-el').innerHTML = response.view;
+                    attachEventListeners();
                 }
             });
-            let sidebarView = fetchData('{{ route('get.sidebar') }}', {}).then(response => {
+            fetchData('/get-sidebar-view', {}).then(response => {
                 if (response && response.view) {
                     document.getElementById('static-sidebar-el').innerHTML = response.view;
                     document.getElementById('responsive-sidebar-el').innerHTML = response.view;
                 }
             });
+        }
+
+        function attachEventListeners() {
+            let images = document.getElementsByClassName('attached-image');
+
+            for (let i = 0; i < images.length; i++) {
+                let image = images[i];
+
+                let uuid = image.dataset.uuid;
+                image.addEventListener('error', () => {
+                    let placeholderSrc = '{{ asset('assets/img/image-placeholder.png') }}';
+                    let span = document.getElementById('span-' + uuid);
+
+                    image.src = placeholderSrc;
+                    image.classList.add('w-1/2');
+                    span.classList.remove('hidden');
+                });
+                image.addEventListener('load', () => {
+                    let skeleton = document.getElementById('skeleton-' + uuid);
+                    skeleton.classList.add('hidden');
+                });
+            }
         }
 
         function fetchData(url, data) {
