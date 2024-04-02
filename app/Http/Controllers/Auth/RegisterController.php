@@ -33,7 +33,10 @@ class RegisterController extends Controller
         ];
 
         $user = User::query()->create($userData);
-        SaveMessage::query()->create(['user_id' => $user->id]);
+        SaveMessage::query()->create([
+            'uuid' => Str::uuid(),
+            'user_id' => $user->id,
+        ]);
 
         if ($user) {
             $verification = Verification::makeVerification(User::query()->find($user->id), $request, Verification::EMAIL_VERIFY);

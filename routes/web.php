@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\HandleMessageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Requests\ToggleThemeRequest;
 use App\Models\User;
@@ -28,6 +29,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/get-sidebar-view', function () {
         return response()->json(['view' => View::make('components.sidebar')->render()]);
     })->name('get.sidebar');
+
+    Route::post('/message-sent', [HandleMessageController::class, 'sent'])->name('message.sent');
 });
 
 Route::prefix('/Auth')->middleware(['guest'])->group(function () {

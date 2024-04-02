@@ -23,6 +23,8 @@
         } else {
             document.documentElement.classList.remove('dark')
         }
+
+        window.uuid = '{{ auth()->user()->uuid }}';
         @endguest
     </script>
     @vite(['resources/css/app.css','resources/js/app.js'])
@@ -42,5 +44,6 @@
 @else
     <script src="{{ asset('assets/js/authToggleTheme.js') }}"></script>
 @endguest
+<script src="{{ asset('assets/js/custom.js') }}"></script>
 </body>
 </html>

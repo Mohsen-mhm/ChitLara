@@ -1,7 +1,7 @@
 @if($message->attachment)
     <div class="flex items-start my-2 px-1" dir="rtl">
         <div
-            class="relative group flex flex-col w-full max-w-[300px] leading-1.5 transition px-0.5 border-gray-200 bg-indigo-700 hover:bg-indigo-800 dark:hover:bg-indigo-800 rounded-xl rounded-es-none">
+            class="relative group flex flex-col w-5/6 max-w-[400px] leading-1.5 transition px-0.5 border-gray-200 bg-indigo-700 hover:bg-indigo-800 dark:hover:bg-indigo-800 rounded-xl rounded-es-none">
             @if($message->attachment->getType() == \App\Models\MessageAttachment::TYPE_IMAGE)
                 <div class="flex flex-col justify-center items-center text-center">
                     <img src="{{ asset(\App\Models\MessageAttachment::ATTACHMENT_DIR . $message->attachment->url) }}"
@@ -50,7 +50,7 @@
             @endif
             @if($message->message)
                 <p dir="ltr" class="text-sm font-mono font-bold p-2 mb-5 text-white dark:text-gray-100">
-                    {{ $message->message }}
+                    {!! nl2br(str_replace(["\r\n", "\r", "\n"], '<br>', urldecode($message->message))) !!}
                 </p>
             @endif
             <span
@@ -75,11 +75,11 @@
 @else
     <div class="flex items-start my-2 px-1" dir="rtl">
         <div
-            class="relative flex flex-col w-full max-w-[250px] leading-1.5 transition px-4 border-gray-200 bg-indigo-700 hover:bg-indigo-800 dark:hover:bg-indigo-800 rounded-xl rounded-es-none">
+            class="relative flex flex-col w-5/6 max-w-[400px] leading-1.5 transition px-4 border-gray-200 bg-indigo-700 hover:bg-indigo-800 dark:hover:bg-indigo-800 rounded-xl rounded-es-none">
 
             @if($message->message)
                 <p dir="ltr" class="text-sm font-mono font-bold py-2 mb-5 text-white dark:text-gray-100">
-                    {{ $message->message }}
+                    {!! nl2br(str_replace(["\r\n", "\r", "\n"], '<br>', urldecode($message->message))) !!}
                 </p>
             @endif
 
