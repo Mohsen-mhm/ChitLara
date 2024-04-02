@@ -35,13 +35,17 @@
 
     <script>
         function clickOnChat(uuid, type) {
-            fetchData('/click-chat', {id: uuid, type: type}).then(response => {
+            fetchData('/click-chat', 'POST', {id: uuid, type: type}).then(response => {
                 if (response && response.view) {
                     document.getElementById('active-box-el').innerHTML = response.view;
                     attachEventListeners();
+                    let activeBox = document.getElementById('overflowed-active-box');
+                    if (activeBox) {
+                        smoothScrollToBottom(activeBox, 500);
+                    }
                 }
             });
-            fetchData('/get-sidebar-view', {}).then(response => {
+            fetchData('/get-sidebar-view', 'POST', {}).then(response => {
                 if (response && response.view) {
                     document.getElementById('static-sidebar-el').innerHTML = response.view;
                     document.getElementById('responsive-sidebar-el').innerHTML = response.view;
@@ -69,11 +73,20 @@
                     skeleton.classList.add('hidden');
                 });
             }
+            document.getElementById('send-message').addEventListener('click', function () {
+                let message = encodeURIComponent(document.getElementById('message-input').value)
+                fetchData('{{ route('message.sent') }}', 'POST', {message: message}).then((response) => {
+                    let activeBox = document.getElementById('overflowed-active-box');
+                    if (activeBox) {
+                        smoothScrollToBottom(activeBox, 500);
+                    }
+                })
+            })
         }
 
-        function fetchData(url, data) {
+        function fetchData(url, method, data) {
             return fetch(url, {
-                method: 'POST',
+                method: method,
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')

@@ -38,6 +38,7 @@ class LoginController extends Controller
                 'email' => trim(strtolower($request->input('email'))),
                 'password' => trim(strtolower($request->input('password')))
             ], $request->input('remember') ?? 0)) {
+                session()->regenerate();
                 toast(__('validation.success_login'), 'success');
                 return redirect()->route('home');
             }

@@ -1,5 +1,5 @@
-<form class="mx-auto">
-    <label for="chat" class="sr-only">Your message</label>
+<div class="mx-auto">
+    <label for="message-input" class="sr-only">Your message</label>
     <div
         class="flex items-center py-2 px-3 bg-gray-100 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800">
         <button type="button"
@@ -20,10 +20,10 @@
                       clip-rule="evenodd"></path>
             </svg>
         </button>
-        <textarea id="chat" rows="1" name="message"
+        <textarea rows="1" name="message" id="message-input"
                   class="block mx-4 transition p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
                   placeholder="Your message..."></textarea>
-        <button type="submit"
+        <button type="button" id="send-message"
                 class="inline-flex group transition justify-center p-2 text-purple-600 rounded-full cursor-pointer hover:bg-purple-100 dark:text-purple-500 dark:hover:bg-gray-700">
             <svg
                 class="w-6 h-6 rotate-90 transition group group-hover:translate-x-0.5 group-hover:text-purple-600"
@@ -34,4 +34,15 @@
             </svg>
         </button>
     </div>
-</form>
+    <script>
+        document.getElementById('send-message').addEventListener('click', function () {
+            let message = encodeURIComponent(document.getElementById('message-input').value)
+            fetchData('{{ route('message.sent') }}', 'POST', {message: message}).then((response) => {
+                let activeBox = document.getElementById('overflowed-active-box');
+                if (activeBox) {
+                    smoothScrollToBottom(activeBox, 500);
+                }
+            })
+        })
+    </script>
+</div>
