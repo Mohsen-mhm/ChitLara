@@ -35,7 +35,9 @@
             {{--                <x-user-message/>--}}
             {{--                --}}{{-- End active private chat bubbles --}}
 
-            <x-send-form/>
+            <div class="w-full h-full" id="send-form-component">
+                <x-send-form/>
+            </div>
         </div>
     @else
         <x-no-message/>
