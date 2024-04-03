@@ -30,6 +30,10 @@ Route::middleware(['auth'])->group(function () {
         return response()->json(['view' => View::make('components.sidebar')->render()]);
     })->name('get.sidebar');
 
+    Route::post('/get-send-component', function () {
+        return response()->json(['view' => View::make('components.send-form')->render()]);
+    })->name('get.send.form');
+
     Route::post('/message-sent', [HandleMessageController::class, 'sent'])->name('message.sent');
 });
 

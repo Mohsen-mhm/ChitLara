@@ -1,7 +1,7 @@
 <div class="mx-auto">
     <label for="message-input" class="sr-only">Your message</label>
-    <div
-        class="flex items-center py-2 px-3 bg-gray-100 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800">
+    <div x-data="{ emojiBoxOpen: false, tooltipHover: false }"
+         class="relative flex items-center py-2 px-3 bg-gray-100 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800">
         <button type="button"
                 class="inline-flex justify-center transition p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
@@ -11,23 +11,18 @@
                       clip-rule="evenodd"></path>
             </svg>
         </button>
-        <button type="button" data-popover-target="popover-emoji" data-popover-placement="bottom-end"
+        <button type="button" @mouseenter="emojiBoxOpen = true" @mouseleave="emojiBoxOpen = false"
                 class="p-2 text-gray-500 transition rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                 xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z"
-                      clip-rule="evenodd"></path>
+            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                 fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M14.99 9H15M8.99 9H9m12 3a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM7 13c0 1 .507 2.397 1.494 3.216a5.5 5.5 0 0 0 7.022 0C16.503 15.397 17 14 17 13c0 0-1.99 1-4.995 1S7 13 7 13Z"/>
             </svg>
         </button>
-        <div data-popover id="popover-emoji" role="tooltip"
-             class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
+        <div x-show="emojiBoxOpen || tooltipHover" x-cloak
+             class="absolute bottom-12 p-2 pb-0 z-10 transition-opacity duration-300"
+             @mouseenter="tooltipHover = true" @mouseleave="tooltipHover = false">
             <emoji-picker></emoji-picker>
-            <script>
-                document.querySelector('emoji-picker')
-                    .addEventListener('emoji-click', event => document.getElementById('message-input').value += event.detail.unicode);
-            </script>
-            <div data-popper-arrow></div>
         </div>
         <textarea rows="1" name="message" id="message-input"
                   class="block mx-4 transition p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"

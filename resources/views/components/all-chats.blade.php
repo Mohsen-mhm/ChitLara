@@ -81,7 +81,9 @@
                         smoothScrollToBottom(activeBox, 500);
                     }
                 })
-            })
+            });
+            document.querySelector('emoji-picker')
+                .addEventListener('emoji-click', event => document.getElementById('message-input').value += event.detail.unicode);
         }
 
         function fetchData(url, method, data) {
