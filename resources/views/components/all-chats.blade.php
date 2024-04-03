@@ -19,7 +19,7 @@
                 </div>
                 <p class="text-sm font-normal transition dark:text-white @if(collect(session('active_box'))->get('type') == \App\Models\Chit::TYPE_SAVED) text-white @endif">
                     @if($user->saveMessage->chits->count())
-                        {{ \Illuminate\Support\Str::limit($user->saveMessage->chits->last()->message, 13) }}
+                        {{ \Illuminate\Support\Str::limit(nl2br(str_replace(["\r\n", "\r", "\n"], '<br>', urldecode($user->saveMessage->chits->last()->message))), 13) }}
                     @else
                         ...
                     @endif
