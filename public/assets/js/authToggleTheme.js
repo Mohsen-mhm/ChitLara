@@ -24,10 +24,14 @@ themeToggleBtn.addEventListener('click', function () {
         document.documentElement.classList.remove('dark');
         sendUpdateRequest('light');
         localStorage.setItem('color-theme', 'light');
+        document.querySelector('emoji-picker').classList.remove('dark')
+        document.querySelector('emoji-picker').classList.add('light')
     } else {
         document.documentElement.classList.add('dark');
         sendUpdateRequest('dark');
         localStorage.setItem('color-theme', 'dark');
+        document.querySelector('emoji-picker').classList.remove('light')
+        document.querySelector('emoji-picker').classList.add('dark')
     }
 });
 

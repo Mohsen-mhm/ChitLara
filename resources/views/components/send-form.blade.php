@@ -11,7 +11,7 @@
                       clip-rule="evenodd"></path>
             </svg>
         </button>
-        <button type="button"
+        <button type="button" data-popover-target="popover-emoji" data-popover-placement="bottom-end"
                 class="p-2 text-gray-500 transition rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                  xmlns="http://www.w3.org/2000/svg">
@@ -20,6 +20,15 @@
                       clip-rule="evenodd"></path>
             </svg>
         </button>
+        <div data-popover id="popover-emoji" role="tooltip"
+             class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
+            <emoji-picker></emoji-picker>
+            <script>
+                document.querySelector('emoji-picker')
+                    .addEventListener('emoji-click', event => document.getElementById('message-input').value += event.detail.unicode);
+            </script>
+            <div data-popper-arrow></div>
+        </div>
         <textarea rows="1" name="message" id="message-input"
                   class="block mx-4 transition p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
                   placeholder="Your message..."></textarea>
