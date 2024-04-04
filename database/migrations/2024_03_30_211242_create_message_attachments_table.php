@@ -18,7 +18,8 @@ return new class extends Migration {
 
             $table->enum('type', ['image', 'file']);
 
-            $table->string('url')->unique();
+            $table->string('path');
+            $table->string('name')->unique();
 
             $table->timestamps();
         });

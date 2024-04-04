@@ -68,10 +68,6 @@
                     image.classList.add('w-1/2');
                     span.classList.remove('hidden');
                 });
-                image.addEventListener('load', () => {
-                    let skeleton = document.getElementById('skeleton-' + uuid);
-                    skeleton.classList.add('hidden');
-                });
             }
             document.getElementById('send-message').addEventListener('click', function () {
                 let message = encodeURIComponent(document.getElementById('message-input').value)
@@ -84,6 +80,117 @@
             });
             document.querySelector('emoji-picker')
                 .addEventListener('emoji-click', event => document.getElementById('message-input').value += event.detail.unicode);
+
+            const fileButton = document.getElementById('fileButton');
+            const imageButton = document.getElementById('imageButton');
+            const fileInput = document.getElementById('fileInput');
+            const imageInput = document.getElementById('imageInput');
+            const previewContainer = document.getElementById('previewContainer');
+            const filePreview = document.getElementById('filePreview');
+            const fileIcon = document.getElementById('fileIcon');
+            const fileName = document.getElementById('fileName');
+            const fileSize = document.getElementById('fileSize');
+
+            function handleInputChange(input, button, type) {
+                button.addEventListener('click', () => {
+                    resetInputs();
+                    input.click();
+                });
+
+                input.addEventListener('change', () => {
+                    const file = input.files[0];
+                    if (file) {
+                        // Set file name and size
+                        fileName.textContent = file.name;
+                        if (file.size > 1048576) {
+                            fileSize.textContent = `${(file.size / 1048576).toFixed(2)} MB`;
+                        } else {
+                            fileSize.textContent = `${(file.size / 1024).toFixed(2)} KB`;
+                        }
+
+                        if (type === 'file') {
+                            fileIcon.innerHTML = `
+                                <svg class="w-10 h-10 text-indigo-700 dark:text-indigo-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 3v4a1 1 0 0 1-1 1H5m4 6 2 2 4-4m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"/>
+                                </svg>
+                            `;
+                        } else if (type === 'image') {
+                            const reader = new FileReader();
+                            reader.onload = () => {
+                                fileIcon.innerHTML = `<img src="${reader.result}" alt="Preview" class="w-full h-full rounded-lg">`;
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                        previewContainer.classList.remove('hidden');
+                        return input.files[0]
+                    } else {
+                        previewContainer.classList.add('hidden');
+                        return null
+                    }
+                });
+            }
+
+            function resetInputs() {
+                fileInput.value = '';
+                imageInput.value = '';
+                previewContainer.classList.add('hidden');
+            }
+
+            handleInputChange(imageInput, imageButton, 'image');
+            handleInputChange(fileInput, fileButton, 'file');
+
+            document.getElementById('send-message').addEventListener('click', function () {
+                let message = encodeURIComponent(document.getElementById('message-input').value)
+                let formData = new FormData();
+                formData.append('message', message);
+                let fileType = null;
+
+                if (imageInput.files[0]) {
+                    formData.append('file', imageInput.files[0])
+                    formData.append('fileType', 'image')
+                } else if (fileInput.files[0]) {
+                    formData.append('file', fileInput.files[0])
+                    formData.append('fileType', 'file')
+                }
+
+                fetch('{{ route('message.sent') }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: formData,
+                }).then(response => {
+                    if (!response.ok) {
+                        throw new Error(`${response.status}`);
+                    }
+                    return response.json();
+                }).then(data => {
+                    let activeBox = document.getElementById('overflowed-active-box');
+                    if (activeBox) {
+                        smoothScrollToBottom(activeBox, 500);
+                    }
+                    resetInputs();
+                }).catch((error) => {
+                    if (error.message === '422') {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-start",
+                            showConfirmButton: false,
+                            showCloseButton: true,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "error",
+                            text: 'A message is required if no file is uploaded'
+                        });
+                    }
+                });
+            });
         }
 
         function fetchData(url, method, data) {
