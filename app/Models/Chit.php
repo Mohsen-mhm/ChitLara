@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
@@ -44,7 +45,7 @@ class Chit extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function attachment(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function attachment(): HasOne
     {
         return $this->hasOne(MessageAttachment::class);
     }

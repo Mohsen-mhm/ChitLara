@@ -14,12 +14,12 @@ class MessageAttachment extends Model
 
     public const TYPE_IMAGE = 'image';
     public const TYPE_FILE = 'file';
-    public const ATTACHMENT_DIR = 'storage/attachments/';
 
     protected $fillable = [
         'chit_id',
         'type',
-        'url'
+        'path',
+        'name'
     ];
 
     /**

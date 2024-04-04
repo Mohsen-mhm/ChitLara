@@ -45,5 +45,6 @@
     <script src="{{ asset('assets/js/authToggleTheme.js') }}"></script>
 @endguest
 <script src="{{ asset('assets/js/custom.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
