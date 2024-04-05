@@ -91,6 +91,10 @@
             const fileName = document.getElementById('fileName');
             const fileSize = document.getElementById('fileSize');
 
+            document.getElementById('close-upload-box').addEventListener('click', function () {
+                resetInputs();
+            });
+
             function handleInputChange(input, button, type) {
                 button.addEventListener('click', () => {
                     resetInputs();
