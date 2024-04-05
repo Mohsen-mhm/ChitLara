@@ -42,13 +42,13 @@
 
         <!-- Hidden file input -->
         <input type="file" id="fileInput" class="hidden">
-        <input type="file" id="imageInput" class="hidden">
+        <input type="file" id="imageInput" class="hidden" accept="image/*">
 
         <!-- Preview container -->
         <div id="previewContainer"
              class="hidden flex justify-center items-center space-x-6 w-full absolute bottom-16 left-0 p-4 bg-gray-100 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800">
             <div class="absolute top-3 left-3 p-2 bg-gray-200 dark:bg-gray-900 cursor-pointer rounded-full"
-                 onclick="resetInputs()">
+                 id="close-upload-box">
                 <svg class="w-6 h-6 ml-[-1px] text-indigo-700 dark:text-indigo-600" aria-hidden="true"
                      xmlns="http://www.w3.org/2000/svg"
                      width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -210,6 +210,10 @@
                     });
                 }
             });
+        });
+
+        document.getElementById('close-upload-box').addEventListener('click', function () {
+            resetInputs();
         });
     </script>
 </div>

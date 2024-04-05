@@ -4,9 +4,10 @@
             class="relative group flex flex-col w-5/6 max-w-[400px] leading-1.5 transition px-0.5 border-gray-200 bg-indigo-700 hover:bg-indigo-800 dark:hover:bg-indigo-800 rounded-xl rounded-es-none">
             @if($message->attachment->getType() == \App\Models\MessageAttachment::TYPE_IMAGE)
                 <div class="flex flex-col justify-center items-center text-center">
-                    <img src="{{ asset('storage/' . $message->attachment->path . '/' . $message->attachment->name) }}"
-                         alt="Attachment" id="image-{{ $message->uuid }}" data-uuid="{{ $message->uuid }}"
-                         class="attached-image transition my-0.5 rounded-xl group-hover:filter group-hover:brightness-125">
+                    <img
+                        src="{{ asset('storage/' . $message->attachment->path . '/' . $message->attachment->name) }}"
+                        alt="Attachment" id="image-{{ $message->uuid }}" data-uuid="{{ $message->uuid }}"
+                        class="attached-image transition my-0.5 rounded-xl group-hover:filter group-hover:brightness-125">
                     <span id="span-{{ $message->uuid }}"
                           class="hidden mb-2 text-sm font-semibold text-yellow-400 font-mono">{{ __('title.fail_to_load') }}</span>
                 </div>
@@ -30,8 +31,10 @@
                         class="text-sm text-center transition rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:focus:ring-gray-600"
                         type="button">
                         <svg class="w-8 h-8 m-1 text-yellow-400" aria-hidden="true"
-                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                             viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="2"
                                   d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/>
                         </svg>
                     </button>
@@ -45,6 +48,7 @@
             @endif
             <span
                 class="absolute bottom-1 right-2 text-sm font-normal text-gray-50 dark:text-gray-200">{{ $message->getMessageSendAt() }}</span>
+
         </div>
     </div>
     <script>
@@ -58,7 +62,7 @@
         });
     </script>
 @else
-    <div class="flex items-start my-2 px-1" dir="rtl">
+    <div class="flex items-start my-2 px-1 relative" dir="rtl">
         <div
             class="relative flex flex-col w-5/6 max-w-[400px] leading-1.5 transition px-4 border-gray-200 bg-indigo-700 hover:bg-indigo-800 dark:hover:bg-indigo-800 rounded-xl rounded-es-none">
 
@@ -73,4 +77,3 @@
         </div>
     </div>
 @endif
-
