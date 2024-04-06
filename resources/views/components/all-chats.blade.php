@@ -38,6 +38,7 @@
             fetchData('/click-chat', 'POST', {id: uuid, type: type}).then(response => {
                 if (response && response.view) {
                     document.getElementById('active-box-el').innerHTML = response.view;
+                    resetInputs();
                     attachEventListeners();
                     let activeBox = document.getElementById('overflowed-active-box');
                     if (activeBox) {
@@ -67,6 +68,23 @@
                     image.src = placeholderSrc;
                     image.classList.add('w-1/2');
                     span.classList.remove('hidden');
+                });
+
+                image.addEventListener('click', () => {
+                    const modal = document.getElementById('imageModal-' + uuid);
+                    const modalImage = document.getElementById('modalImage-' + uuid);
+                    modalImage.src = image.src;
+                    modal.classList.remove('hidden');
+                    setTimeout(() => {
+                        document.getElementById('imageModalContent-' + uuid).style.opacity = '1';
+                    }, 1);
+                });
+                document.getElementById('imageModal-' + uuid).addEventListener('click', () => {
+                    const modal = document.getElementById('imageModal-' + uuid);
+                    document.getElementById('imageModalContent-' + uuid).style.opacity = '0';
+                    setTimeout(() => {
+                        modal.classList.add('hidden');
+                    }, 100);
                 });
             }
             document.getElementById('send-message').addEventListener('click', function () {
@@ -139,6 +157,7 @@
                 imageInput.value = '';
                 previewContainer.classList.add('hidden');
             }
+            resetInputs();
 
             handleInputChange(imageInput, imageButton, 'image');
             handleInputChange(fileInput, fileButton, 'file');
