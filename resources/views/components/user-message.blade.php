@@ -16,7 +16,7 @@
                     <div class="absolute bg-gray-900 opacity-50 inset-0"></div>
                     <div id="imageModalContent-{{ $message->uuid }}"
                          class="rounded-2xl w-full px-8 mx-auto z-50 overflow-y-auto opacity-0 transition-opacity">
-                        <img id="modalImage-{{ $message->uuid }}" src="" alt="Image" class="w-full rounded-2xl" style="-webkit-user-drag: none"  oncontextmenu="return false;">
+                        <img id="modalImage-{{ $message->uuid }}" src="" alt="Image" class="border border-gray-300 dark:border-gray-600 w-full rounded-2xl" style="-webkit-user-drag: none"  oncontextmenu="return false;">
                     </div>
                 </div>
             @elseif($message->attachment->getType() == \App\Models\MessageAttachment::TYPE_FILE)

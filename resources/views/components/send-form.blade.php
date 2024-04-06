@@ -210,6 +210,7 @@
                     });
                 }
             });
+            previewContainer.classList.add('hidden');
         });
 
         document.getElementById('close-upload-box').addEventListener('click', function () {
