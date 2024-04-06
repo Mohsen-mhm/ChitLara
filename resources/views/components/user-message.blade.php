@@ -6,12 +6,19 @@
                 <div class="flex flex-col justify-center items-center text-center">
                     <img
                         src="{{ asset('storage/' . $message->attachment->path . '/' . $message->attachment->name) }}"
-                        alt="Attachment" id="image-{{ $message->uuid }}" data-uuid="{{ $message->uuid }}"
+                        alt="Attachment" id="image-{{ $message->uuid }}" data-uuid="{{ $message->uuid }}" style="-webkit-user-drag: none"  oncontextmenu="return false;"
                         class="attached-image transition my-0.5 rounded-xl group-hover:filter group-hover:brightness-125">
                     <span id="span-{{ $message->uuid }}"
                           class="hidden mb-2 text-sm font-semibold text-yellow-400 font-mono">{{ __('title.fail_to_load') }}</span>
                 </div>
-
+                <div id="imageModal-{{ $message->uuid }}"
+                     class="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 hidden">
+                    <div class="absolute bg-gray-900 opacity-50 inset-0"></div>
+                    <div id="imageModalContent-{{ $message->uuid }}"
+                         class="rounded-2xl w-full px-8 mx-auto z-50 overflow-y-auto opacity-0 transition-opacity">
+                        <img id="modalImage-{{ $message->uuid }}" src="" alt="Image" class="w-full rounded-2xl" style="-webkit-user-drag: none"  oncontextmenu="return false;">
+                    </div>
+                </div>
             @elseif($message->attachment->getType() == \App\Models\MessageAttachment::TYPE_FILE)
                 <div
                     class="flex justify-between items-center transition select-none bg-transparent border border-gray-400 hover:bg-indigo-900 h-[70px] rounded-xl px-4 m-1 mb-6"
@@ -59,6 +66,22 @@
             span.classList.remove('hidden');
             image.src = '{{ asset('assets/img/image-placeholder.png') }}';
             image.classList.add('w-1/2');
+        });
+        document.getElementById('image-{{ $message->uuid }}').addEventListener('click', () => {
+            const modal = document.getElementById('imageModal-{{ $message->uuid }}');
+            const modalImage = document.getElementById('modalImage-{{ $message->uuid }}');
+            modalImage.src = document.getElementById('image-{{ $message->uuid }}').src;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('imageModalContent-{{ $message->uuid }}').style.opacity = '1';
+            }, 1);
+        });
+        document.getElementById('imageModal-{{ $message->uuid }}').addEventListener('click', () => {
+            const modal = document.getElementById('imageModal-{{ $message->uuid }}');
+            document.getElementById('imageModalContent-{{ $message->uuid }}').style.opacity = '0';
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 100);
         });
     </script>
 @else
