@@ -6,7 +6,8 @@
                 <div class="flex flex-col justify-center items-center text-center">
                     <img
                         src="{{ asset('storage/' . $message->attachment->path . '/' . $message->attachment->name) }}"
-                        alt="Attachment" id="image-{{ $message->uuid }}" data-uuid="{{ $message->uuid }}" style="-webkit-user-drag: none"  oncontextmenu="return false;"
+                        alt="Attachment" id="image-{{ $message->uuid }}" data-uuid="{{ $message->uuid }}"
+                        style="-webkit-user-drag: none" oncontextmenu="return false;"
                         class="attached-image transition my-0.5 rounded-xl group-hover:filter group-hover:brightness-125">
                     <span id="span-{{ $message->uuid }}"
                           class="hidden mb-2 text-sm font-semibold text-yellow-400 font-mono">{{ __('title.fail_to_load') }}</span>
@@ -15,8 +16,10 @@
                      class="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 hidden">
                     <div class="absolute bg-gray-900 opacity-50 inset-0"></div>
                     <div id="imageModalContent-{{ $message->uuid }}"
-                         class="rounded-2xl w-full px-8 mx-auto z-50 overflow-y-auto opacity-0 transition-opacity">
-                        <img id="modalImage-{{ $message->uuid }}" src="" alt="Image" class="border border-gray-300 dark:border-gray-600 w-full rounded-2xl" style="-webkit-user-drag: none"  oncontextmenu="return false;">
+                         class="rounded-2xl w-8/9 mx-auto z-50 overflow-y-auto opacity-0 transition-opacity">
+                        <img id="modalImage-{{ $message->uuid }}" src="" alt="Image"
+                             class="border border-gray-300 dark:border-gray-600 w-full rounded-2xl"
+                             style="-webkit-user-drag: none" oncontextmenu="return false;">
                     </div>
                 </div>
             @elseif($message->attachment->getType() == \App\Models\MessageAttachment::TYPE_FILE)
@@ -34,9 +37,9 @@
                               </svg>
                               {{ \Illuminate\Support\Str::limit($message->attachment->name, 15) }}
                         </span>
-                    <button
-                        class="text-sm text-center transition rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:focus:ring-gray-600"
-                        type="button">
+                    <a href="{{ route('download.file', ['path' => $message->attachment->path, 'name' => $message->attachment->name]) }}"
+                       class="text-sm text-center transition rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:focus:ring-gray-600"
+                       type="button">
                         <svg class="w-8 h-8 m-1 text-yellow-400" aria-hidden="true"
                              xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                              viewBox="0 0 24 24">
@@ -44,8 +47,7 @@
                                   stroke-width="2"
                                   d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/>
                         </svg>
-                    </button>
-                    {{--                        {{ asset(\App\Models\MessageAttachment::ATTACHMENT_DIR . $message->attachment->url) }}--}}
+                    </a>
                 </div>
             @endif
             @if($message->message)
