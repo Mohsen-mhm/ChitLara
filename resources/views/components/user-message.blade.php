@@ -8,7 +8,7 @@
                         src="{{ asset('storage/' . $message->attachment->path . '/' . $message->attachment->name) }}"
                         alt="Attachment" id="image-{{ $message->uuid }}" data-uuid="{{ $message->uuid }}"
                         style="-webkit-user-drag: none" oncontextmenu="return false;"
-                        class="attached-image transition my-0.5 rounded-xl group-hover:filter group-hover:brightness-125">
+                        class="attached-image transition my-0.5 rounded-xl cursor-zoom-in group-hover:filter group-hover:brightness-125">
                     <span id="span-{{ $message->uuid }}"
                           class="hidden mb-2 text-sm font-semibold text-yellow-400 font-mono">{{ __('title.fail_to_load') }}</span>
                 </div>
@@ -18,7 +18,7 @@
                     <div id="imageModalContent-{{ $message->uuid }}"
                          class="rounded-2xl w-8/9 mx-auto z-50 overflow-y-auto opacity-0 transition-opacity">
                         <img id="modalImage-{{ $message->uuid }}" src="" alt="Image"
-                             class="border border-gray-300 dark:border-gray-600 w-full rounded-2xl"
+                             class="border border-gray-300 dark:border-gray-600 w-full rounded-2xl cursor-zoom-out"
                              style="-webkit-user-drag: none" oncontextmenu="return false;">
                     </div>
                 </div>
