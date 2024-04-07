@@ -6,7 +6,7 @@ This is a real-time web chat app with Laravel, Reverb & Redis.
 
 - **PHP**
 - **Laravel**
-- **Reverb**
+- **Reverb ( WebSocket, Laravel-Echo )**
 - **Redis**
 - **Redis-server**
 - **Js**
