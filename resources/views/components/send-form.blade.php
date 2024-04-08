@@ -211,6 +211,7 @@
                 }
             });
             previewContainer.classList.add('hidden');
+            resetInputs();
         });
 
         document.getElementById('close-upload-box').addEventListener('click', function () {

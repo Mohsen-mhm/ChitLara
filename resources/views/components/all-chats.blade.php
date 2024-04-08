@@ -38,7 +38,6 @@
             fetchData('/click-chat', 'POST', {id: uuid, type: type}).then(response => {
                 if (response && response.view) {
                     document.getElementById('active-box-el').innerHTML = response.view;
-                    resetInputs();
                     attachEventListeners();
                     let activeBox = document.getElementById('overflowed-active-box');
                     if (activeBox) {

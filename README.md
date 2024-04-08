@@ -85,6 +85,9 @@ npm run build #For production server
 And finally, start the application:
 
 ```bash
+php artisan storage:link
+```
+```bash
 php artisan serve
 ```
 ```bash
