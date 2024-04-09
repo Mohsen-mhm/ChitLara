@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $item = [
+        $godData = [
             'uuid' => Str::uuid(),
             'name' => 'mohsen',
             'username' => 'mohsen',
@@ -25,15 +25,35 @@ class UserSeeder extends Seeder
             'password' => '235711131719',
         ];
 
-        $user = User::query()->where('email', $item['email'])->first();
+        $godUser = User::query()->where('email', $godData['email'])->first();
 
-        if (!$user) {
-            $god = User::query()->create($item);
+        if (!$godUser) {
+            $god = User::query()->create($godData);
             $god->roles()->sync(Role::query()->where('name', Role::GOD)->first()->id);
 
             SaveMessage::query()->create([
                 'uuid' => Str::uuid(),
                 'user_id' => $god->id
+            ]);
+        }
+        $adminData = [
+            'uuid' => Str::uuid(),
+            'name' => 'ali',
+            'username' => 'ali',
+            'email' => 'ali@gmail.com',
+            'email_verified_at' => now(),
+            'password' => '235711131719',
+        ];
+
+        $adminUser = User::query()->where('email', $adminData['email'])->first();
+
+        if (!$adminUser) {
+            $admin = User::query()->create($adminData);
+            $admin->roles()->sync(Role::query()->where('name', Role::USER)->first()->id);
+
+            SaveMessage::query()->create([
+                'uuid' => Str::uuid(),
+                'user_id' => $admin->id
             ]);
         }
     }

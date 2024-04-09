@@ -1,5 +1,9 @@
 <div class="w-full h-full">
-    <h1 class="mb-2 text-3xl font-semibold text-indigo-600 dark:text-yellow-400">{{ env('APP_NAME') }}</h1>
+    <h1 class="text-3xl font-semibold text-indigo-600 dark:text-yellow-400">{{ env('APP_NAME') }}</h1>
+
+    <div class="mb-3 mt-2">
+        <x-groups.create/>
+    </div>
 
     <x-search-chats/>
 

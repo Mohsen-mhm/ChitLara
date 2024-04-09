@@ -1,7 +1,8 @@
 <div class="h-full overflow-auto pr-2">
     @if($user->saveMessage->count())
         <a href="javascript:void(0)"
-           @if(collect(session('active_box'))->get('id') != $user->saveMessage->uuid) onclick="clickOnChat('{{ $user->saveMessage->uuid }}', '{{ \App\Models\Chit::TYPE_SAVED }}')"
+           @if(collect(session('active_box'))->get('id') != $user->saveMessage->uuid)
+               onclick="clickOnChat('{{ $user->saveMessage->uuid }}', '{{ \App\Models\Chit::TYPE_SAVED }}')"
            @endif
            class="flex items-start hover:-translate-x-0.5 @if(collect(session('active_box'))->get('id') == $user->saveMessage->uuid) bg-indigo-700 hover:bg-indigo-800 @endif transition p-2 mb-2 rounded-lg gap-2.5 cursor-pointer">
             <div style="min-height: 2.5rem; min-width: 2.5rem;"
@@ -156,6 +157,7 @@
                 imageInput.value = '';
                 previewContainer.classList.add('hidden');
             }
+
             resetInputs();
 
             handleInputChange(imageInput, imageButton, 'image');
