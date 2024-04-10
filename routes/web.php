@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\HandleMessageController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MakerController;
 use App\Http\Requests\ToggleThemeRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Redis;
@@ -38,6 +39,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/message-sent', [HandleMessageController::class, 'sent'])->name('message.sent');
 
     Route::get('/download-file', [DownloadController::class, 'download'])->name('download.file');
+
+    Route::prefix('/create')->as('create.')->group(function () {
+        Route::post('/group', [MakerController::class, 'createGroup'])->name('group');
+    });
 });
 
 Route::prefix('/Auth')->middleware(['guest'])->group(function () {

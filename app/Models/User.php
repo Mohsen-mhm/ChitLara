@@ -81,7 +81,7 @@ class User extends Authenticatable
 
     public function ownGroups(): HasMany
     {
-        return $this->hasMany(Group::class);
+        return $this->hasMany(Group::class, 'creator_id');
     }
 
     public function groups(): BelongsToMany
