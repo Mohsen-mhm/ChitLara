@@ -34,6 +34,36 @@
         </a>
     @endif
 
+    @if($user->groups->count())
+        @foreach($user->groups as $group)
+            <a href="javascript:void(0)"
+               @if(collect(session('active_box'))->get('id') != $group->uuid)
+                   onclick="clickOnChat('{{ $group->uuid }}', '{{ \App\Models\Chit::TYPE_SAVED }}')"
+               @endif
+               class="flex items-start hover:-translate-x-0.5 @if(collect(session('active_box'))->get('id') == $group->uuid) bg-indigo-700 hover:bg-indigo-800 @endif transition p-2 mb-2 rounded-lg gap-2.5 cursor-pointer">
+                {!! \App\Helper\Helper::generateAvatar($group->name, $group->avatar) !!}
+                <div class="relative flex flex-col w-full max-w-[250px] leading-1.5">
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                    <span
+                        class="text-sm font-semibold text-yellow-500 dark:text-yellow-400">{{ $group->name }}</span>
+                    </div>
+                    <p class="text-sm font-normal transition dark:text-white @if(collect(session('active_box'))->get('type') == \App\Models\Chit::TYPE_SAVED) text-white @endif">
+                        @if($group->chits->count())
+                            {{ \Illuminate\Support\Str::limit(nl2br(str_replace(["\r\n", "\r", "\n"], '<br>', urldecode($group->chits->last()->message))), 13) }}
+                        @else
+                            ...
+                        @endif
+                    </p>
+                    @if($group->chits->count())
+                        <span class="absolute bottom-0 right-0 text-sm font-normal text-gray-400 dark:text-gray-200">
+                        {{ $group->chits->last()->getMessageSendAt() }}
+                    </span>
+                    @endif
+                </div>
+            </a>
+        @endforeach
+    @endif
+
     <script>
         function clickOnChat(uuid, type) {
             fetchData('/click-chat', 'POST', {id: uuid, type: type}).then(response => {
