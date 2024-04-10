@@ -20,7 +20,8 @@
          x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300"
          x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
          class="fixed z-10 inset-0 overflow-y-auto">
-        <div class="flex items-center justify-center min-h-screen">
+        <div class="flex items-center justify-center min-h-screen"
+             x-data="{ groupName: '', groupUsername: '', groupType: '0' }">
             <div class="fixed inset-0 transition-opacity">
                 <div class="absolute inset-0 bg-gray-500 opacity-75 dark:bg-gray-900"
                      @click="showCreateGroupModal = false"></div>
@@ -32,26 +33,30 @@
                         <div class="w-full mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                             <h1 class="text-2xl font-semibold text-indigo-600 dark:text-yellow-400 text-center mb-5">
                                 Create new group</h1>
-                            <form class="grid gap-6 mb-6 md:grid-cols-1">
+                            <div class="grid gap-6 mb-6 md:grid-cols-1">
                                 <div class="w-full">
-                                    <label for="name"
+                                    <label for="name-input"
                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                    <input type="text" id="name" name="name"
+                                    <input type="text" id="name-input" name="name" x-model="groupName"
                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
                                            placeholder="Group name" required/>
                                 </div>
                                 <div class="w-full">
-                                    <label for="username"
+                                    <label for="username-input"
                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                                    <input type="text" id="username" name="username"
+                                    <input type="text" id="username-input" name="username" x-model="groupUsername"
                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
                                            placeholder="Group username" required/>
                                 </div>
+
+                                <div id="error-container" class="text-red-600"></div>
+
                                 <hr class="border-0 border-t border-gray-500">
                                 <div class="w-full">
                                     <h3 class="mb-5 text-lg font-medium text-gray-900 dark:text-white">Group type</h3>
                                     <label class="inline-flex items-center me-5 cursor-pointer">
-                                        <input type="checkbox" name="type" value="0" class="sr-only peer" required>
+                                        <input type="checkbox" name="type" value="0" class="sr-only peer"
+                                               id="type-input" x-model="groupType" required>
                                         <span
                                             class="me-3 text-sm font-medium flex justify-between items-center text-green-500 peer-checked:text-gray-500 transition">
                                             <svg class="w-6 h-6 me-2" aria-hidden="true"
@@ -78,12 +83,13 @@
                                         </span>
                                     </label>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-gray-50 dark:bg-gray-700 px-4 py-2 space-x-3 flex justify-start items-center flex-row-reverse">
-                    <button type="button"
+                <div
+                    class="bg-gray-50 dark:bg-gray-700 px-4 py-2 space-x-3 flex justify-start items-center flex-row-reverse">
+                    <button type="button" id="create-group" @click="clickedCreate(groupName, groupUsername, groupType)"
                             class="mx-2 focus:outline-none text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-900 transition">
                         Create
                     </button>
@@ -92,6 +98,98 @@
                         Close
                     </button>
                 </div>
+                <script>
+                    function clickedCreate(name, username, type) {
+                        const data = {
+                            name: name,
+                            username: username,
+                            type: (type == false || type == 0 ? 'public' : 'private')
+                        };
+
+                        fetch('{{ route('create.group') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify(data)
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    return {errors: JSON.parse(response.headers.get('errors'))};
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                if (data && data.errors) {
+                                    displayErrors(data.errors);
+                                } else {
+                                    // Handle success response
+                                    if (data) {
+                                        fetchData('{{ route('get.sidebar') }}', 'POST', {}).then(response => {
+                                            if (response && response.view) {
+                                                document.getElementById('static-sidebar-el').innerHTML = response.view;
+                                                document.getElementById('responsive-sidebar-el').innerHTML = response.view;
+                                            }
+                                        });
+                                    }
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                    }
+
+                    function displayErrors(errors) {
+                        const errorContainer = document.getElementById('error-container');
+                        errorContainer.innerHTML = '';
+
+                        let errorMessages = '';
+                        for (const field in errors) {
+                            if (errors.hasOwnProperty(field)) {
+                                errors[field].forEach(errorMessage => {
+                                    errorMessages += errorMessage + '\n\n'
+                                });
+                            }
+                        }
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-start",
+                            showConfirmButton: false,
+                            showCloseButton: true,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "error",
+                            text: errorMessages
+                        });
+                    }
+
+                    function fetchData(url, method, data) {
+                        return fetch(url, {
+                            method: method,
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify(data),
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                }
+                                return response.json();
+                            })
+                            .catch(error => {
+                                throw error;
+                            });
+                    }
+                </script>
             </div>
         </div>
     </div>
