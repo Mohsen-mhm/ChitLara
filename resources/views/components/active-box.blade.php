@@ -16,9 +16,22 @@
                         @endif
                     </div>
                 @elseif(collect(session('active_box'))->get('type') == \App\Models\Chit::TYPE_GROUP)
-                    @php
-                        $group = \App\Models\Group::getByUuid(collect(session('active_box'))->get('id'));
-                    @endphp
+                    <div class="w-full h-full" id="group-message-box">
+                        @php
+                            $group = \App\Models\Group::getByUuid(collect(session('active_box'))->get('id'));
+                        @endphp
+                        @if($group->chits->count())
+                            @foreach($group->chits as $message)
+                                @if(auth()->id() == $message->user_id)
+                                    <x-user-message :$message/>
+                                @else
+                                    <x-group-message :$message/>
+                                @endif
+                            @endforeach
+                        @else
+                            <x-no-message/>
+                        @endif
+                    </div>
                 @else
                     @php
                         $user = \App\Models\User::getByUuid(collect(session('active_box'))->get('id'));

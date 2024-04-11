@@ -38,7 +38,7 @@
         @foreach($user->groups as $group)
             <a href="javascript:void(0)"
                @if(collect(session('active_box'))->get('id') != $group->uuid)
-                   onclick="clickOnChat('{{ $group->uuid }}', '{{ \App\Models\Chit::TYPE_SAVED }}')"
+                   onclick="clickOnChat('{{ $group->uuid }}', '{{ \App\Models\Chit::TYPE_GROUP }}')"
                @endif
                class="flex items-start hover:-translate-x-0.5 @if(collect(session('active_box'))->get('id') == $group->uuid) bg-indigo-700 hover:bg-indigo-800 @endif transition p-2 mb-2 rounded-lg gap-2.5 cursor-pointer">
                 {!! \App\Helper\Helper::generateAvatar($group->name, $group->avatar) !!}
@@ -66,6 +66,7 @@
 
     <script>
         function clickOnChat(uuid, type) {
+            window.groupUuid = uuid;
             fetchData('/click-chat', 'POST', {id: uuid, type: type}).then(response => {
                 if (response && response.view) {
                     document.getElementById('active-box-el').innerHTML = response.view;
