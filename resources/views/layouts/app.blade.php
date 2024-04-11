@@ -25,6 +25,7 @@
         }
 
         window.uuid = '{{ auth()->user()->uuid }}';
+        window.groupUuid = '{{ collect(session('active_box'))->get('type') == \App\Models\Chit::TYPE_GROUP ? collect(session('active_box'))->get('id') : 0 }}';
         @endguest
     </script>
     @vite(['resources/css/app.css','resources/js/app.js'])

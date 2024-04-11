@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\GroupMessageSendEvent;
 use App\Events\MessageSentEvent;
 use App\Http\Requests\MessageSentRequest;
 use App\Models\Chit;
+use App\Models\Group;
 use App\Models\MessageAttachment;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -71,6 +73,42 @@ class HandleMessageController extends Controller
     private function sendToGroup(User $user, Request $request)
     {
         $message = $request->input('message');
+        $file = $request->file('file');
+        $fileType = $request->input('fileType');
+
+        $group = Group::getByUuid(collect(session('active_box'))->get('id'));
+
+        $chit = $group->chits()->create([
+            'uuid' => Str::uuid(),
+            'user_id' => $user->id,
+            'message' => $message
+        ]);
+
+        if ($file && $fileType) {
+            if ($fileType == MessageAttachment::TYPE_FILE) {
+                $path = 'files' . "/" . now()->year . "/" . now()->month . "/" . now()->day;
+                $name = Str::password(30, true, true, false) . '.' . $file->getClientOriginalExtension();
+                Storage::disk('public')->putFileAs($path, $file, $name);
+                $chit->attachment()->create([
+                    'type' => MessageAttachment::TYPE_FILE,
+                    'path' => $path,
+                    'name' => $name
+                ]);
+            } elseif ($fileType == MessageAttachment::TYPE_IMAGE) {
+                $path = 'images' . "/" . now()->year . "/" . now()->month . "/" . now()->day;
+                $name = Str::password(30, true, true, false) . '.' . $file->getClientOriginalExtension();
+                Storage::disk('public')->putFileAs($path, $file, $name);
+                $chit->attachment()->create([
+                    'type' => MessageAttachment::TYPE_IMAGE,
+                    'path' => $path,
+                    'name' => $name
+                ]);
+            }
+        }
+
+        GroupMessageSendEvent::dispatch($chit);
+
+        return $this->response(true, 'Successfully saved & Broadcast', collect($chit)->toArray());
     }
 
     private function sendToUser(User $user, Request $request)
