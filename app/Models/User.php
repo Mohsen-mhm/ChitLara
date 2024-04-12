@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Casts\Json;
 use App\Enums\AppLangEnum;
 use App\Enums\AppThemeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -39,6 +40,7 @@ class User extends Authenticatable
         'active',
         'theme',
         'last_seen_at',
+        'last_activity',
     ];
 
     /**
@@ -65,6 +67,7 @@ class User extends Authenticatable
             '2fa_code' => 'hashed',
             '2fa' => 'boolean',
             'active' => 'boolean',
+            'last_activity' => Json::class,
         ];
     }
 

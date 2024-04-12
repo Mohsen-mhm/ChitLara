@@ -66,7 +66,6 @@
 
     <script>
         function clickOnChat(uuid, type) {
-            window.groupUuid = uuid;
             fetchData('/click-chat', 'POST', {id: uuid, type: type}).then(response => {
                 if (response && response.view) {
                     document.getElementById('active-box-el').innerHTML = response.view;
