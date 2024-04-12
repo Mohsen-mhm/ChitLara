@@ -2,6 +2,7 @@
 
 namespace App\Helper;
 
+use App\Models\User;
 use Illuminate\Support\Facades\View;
 
 class Helper
@@ -35,6 +36,10 @@ class Helper
             'id' => $uuid,
             'type' => $type
         ]);
+        User::query()->find(auth()->id())->update(['last_activity' => [
+            'id' => $uuid,
+            'type' => $type
+        ]]);
 
         return View::make('components.active-box')->render();
     }

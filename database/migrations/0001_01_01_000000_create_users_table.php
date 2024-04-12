@@ -32,6 +32,7 @@ return new class extends Migration {
 
             $table->enum('theme', ['dark', 'light'])->default('light');
             $table->timestamp('last_seen_at')->nullable();
+            $table->json('last_activity')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

@@ -11,7 +11,7 @@ window.Echo.private(`chits.${window.uuid}`)
             smoothScrollToBottom(activeBox, 1000);
         }
     });
-console.log(`group.chits.${window.groupUuid}`)
+
 window.Echo.private(`group.chits.${window.groupUuid}`)
     .listen('.GroupMessageSentEvent', (e) => {
         let savedActiveBox = document.getElementById('group-message-box');
