@@ -117,15 +117,6 @@
                     }, 100);
                 });
             }
-            document.getElementById('send-message').addEventListener('click', function () {
-                let message = encodeURIComponent(document.getElementById('message-input').value)
-                fetchData('{{ route('message.sent') }}', 'POST', {message: message}).then((response) => {
-                    let activeBox = document.getElementById('overflowed-active-box');
-                    if (activeBox) {
-                        smoothScrollToBottom(activeBox, 500);
-                    }
-                })
-            });
             document.querySelector('emoji-picker')
                 .addEventListener('emoji-click', event => document.getElementById('message-input').value += event.detail.unicode);
 
